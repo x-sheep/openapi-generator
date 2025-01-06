@@ -9,10 +9,6 @@ import Foundation
 import FoundationNetworking
 #endif
 
-protocol JSONEncodable {
-    func encodeToJSON(codableHelper: CodableHelper) -> Any
-}
-
 /// An enum where the last case value can be used as a default catch-all.
 protocol CaseIterableDefaultsLast: Decodable & CaseIterable & RawRepresentable
 where RawValue: Decodable, AllCases: BidirectionalCollection {}

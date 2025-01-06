@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objcMembers public class Client: NSObject, Codable, JSONEncodable {
+@objcMembers public class Client: NSObject, Codable {
 
     public var client: String?
 

@@ -76,12 +76,6 @@ import Foundation
     }
 }
 
-extension OpenAPIDateWithoutTime: JSONEncodable {
-    func encodeToJSON(codableHelper: CodableHelper) -> Any {
-        return OpenISO8601DateFormatter.withoutTime.string(from: self.normalizedWrappedDate())
-    }
-}
-
 extension OpenAPIDateWithoutTime: RawRepresentable {
     public typealias RawValue = String
     public init?(rawValue: String) {

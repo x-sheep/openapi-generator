@@ -48,7 +48,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             :
         ]
 
@@ -97,7 +97,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             :
         ]
 
@@ -146,7 +146,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             :
         ]
 
@@ -195,7 +195,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             :
         ]
 
@@ -244,7 +244,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/json",
         ]
 
@@ -297,7 +297,7 @@ open class FakeAPI {
             "query": (wrappedValue: query.encodeToJSON(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/json",
         ]
 
@@ -348,7 +348,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/json",
         ]
 
@@ -424,7 +424,7 @@ open class FakeAPI {
     open class func testEndpointParametersWithRequestBuilder(number: Double, double: Double, patternWithoutDelimiter: String, byte: Data, integer: Int? = nil, int32: Int? = nil, int64: Int64? = nil, float: Float? = nil, string: String? = nil, binary: URL? = nil, date: Date? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<Void> {
         let localVariablePath = "/fake"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: Any?] = [
+        let localVariableFormParams: [String: (any Sendable)?] = [
             "integer": integer?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "int32": int32?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "int64": int64?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
@@ -446,7 +446,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/x-www-form-urlencoded",
         ]
 
@@ -574,7 +574,7 @@ open class FakeAPI {
     open class func testEnumParametersWithRequestBuilder(enumHeaderStringArray: [EnumHeaderStringArray_testEnumParameters]? = nil, enumHeaderString: EnumHeaderString_testEnumParameters? = nil, enumQueryStringArray: [EnumQueryStringArray_testEnumParameters]? = nil, enumQueryString: EnumQueryString_testEnumParameters? = nil, enumQueryInteger: EnumQueryInteger_testEnumParameters? = nil, enumQueryDouble: EnumQueryDouble_testEnumParameters? = nil, enumFormStringArray: [EnumFormStringArray_testEnumParameters]? = nil, enumFormString: EnumFormString_testEnumParameters? = nil, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<Void> {
         let localVariablePath = "/fake"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: Any?] = [
+        let localVariableFormParams: [String: (any Sendable)?] = [
             "enum_form_string_array": enumFormStringArray?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "enum_form_string": enumFormString?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -590,7 +590,7 @@ open class FakeAPI {
             "enum_query_double": (wrappedValue: enumQueryDouble?.encodeToJSON(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/x-www-form-urlencoded",
             "enum_header_string_array": enumHeaderStringArray?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "enum_header_string": enumHeaderString?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
@@ -649,7 +649,7 @@ open class FakeAPI {
     open class func testGroupParametersWithRequestBuilder(requiredStringGroup: Int, requiredBooleanGroup: Bool, requiredInt64Group: Int64, stringGroup: Int? = nil, booleanGroup: Bool? = nil, int64Group: Int64? = nil, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<Void> {
         let localVariablePath = "/fake"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters: [String: any Sendable]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
         localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
@@ -659,7 +659,7 @@ open class FakeAPI {
             "int64_group": (wrappedValue: int64Group?.encodeToJSON(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "required_boolean_group": requiredBooleanGroup.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "boolean_group": booleanGroup?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -710,7 +710,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/json",
         ]
 
@@ -758,7 +758,7 @@ open class FakeAPI {
     open class func testJsonFormDataWithRequestBuilder(param: String, param2: String, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<Void> {
         let localVariablePath = "/fake/jsonFormData"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: Any?] = [
+        let localVariableFormParams: [String: (any Sendable)?] = [
             "param": param.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "param2": param2.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -768,7 +768,7 @@ open class FakeAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/x-www-form-urlencoded",
         ]
 

@@ -48,7 +48,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/json",
         ]
 
@@ -96,11 +96,11 @@ import Foundation
         let petIdPostEscape = petIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{petId}", with: petIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters: [String: any Sendable]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "api_key": apiKey?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
         ]
 
@@ -153,14 +153,14 @@ import Foundation
     open class func findPetsByStatusWithRequestBuilder(status: [Status_findPetsByStatus], apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<[Pet]> {
         let localVariablePath = "/pet/findByStatus"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters: [String: any Sendable]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
         localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "status": (wrappedValue: status.encodeToJSON(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             :
         ]
 
@@ -206,14 +206,14 @@ import Foundation
     open class func findPetsByTagsWithRequestBuilder(tags: [String], apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<[Pet]> {
         let localVariablePath = "/pet/findByTags"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters: [String: any Sendable]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
         localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "tags": (wrappedValue: tags.encodeToJSON(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             :
         ]
 
@@ -260,11 +260,11 @@ import Foundation
         let petIdPostEscape = petIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{petId}", with: petIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters: [String: any Sendable]? = nil
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             :
         ]
 
@@ -311,7 +311,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/json",
         ]
 
@@ -361,7 +361,7 @@ import Foundation
         let petIdPostEscape = petIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{petId}", with: petIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: Any?] = [
+        let localVariableFormParams: [String: (any Sendable)?] = [
             "name": name?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "status": status?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -371,7 +371,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "application/x-www-form-urlencoded",
         ]
 
@@ -421,7 +421,7 @@ import Foundation
         let petIdPostEscape = petIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{petId}", with: petIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: Any?] = [
+        let localVariableFormParams: [String: (any Sendable)?] = [
             "additionalMetadata": additionalMetadata?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "file": file?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -431,7 +431,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "multipart/form-data",
         ]
 
@@ -481,7 +481,7 @@ import Foundation
         let petIdPostEscape = petIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{petId}", with: petIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: Any?] = [
+        let localVariableFormParams: [String: (any Sendable)?] = [
             "additionalMetadata": additionalMetadata?.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
             "requiredFile": requiredFile.encodeToJSON(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -491,7 +491,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
             "Content-Type": "multipart/form-data",
         ]
 
