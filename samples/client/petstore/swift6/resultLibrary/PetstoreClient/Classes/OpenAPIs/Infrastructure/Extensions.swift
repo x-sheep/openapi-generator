@@ -9,73 +9,64 @@ import Foundation
 import FoundationNetworking
 #endif
 
-extension Bool: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
-}
+extension Bool: ParameterConvertible {}
+extension Float: ParameterConvertible {}
+extension Int: ParameterConvertible {}
+extension Int32: ParameterConvertible {}
+extension Int64: ParameterConvertible {}
+extension Double: ParameterConvertible {}
 
-extension Float: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
-}
-
-extension Int: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
-}
-
-extension Int32: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
-}
-
-extension Int64: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
-}
-
-extension Double: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
+extension ParameterConvertible where Self: LosslessStringConvertible & Encodable {
+    func asParameter(codableHelper: CodableHelper) -> ParameterField { .string(String(self)) }
 }
 
 extension Decimal: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
+    func asParameter(codableHelper: CodableHelper) -> ParameterField { .string(String(describing: self)) }
 }
 
 extension String: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
+    func asParameter(codableHelper: CodableHelper) -> ParameterField { .string(self) }
 }
 
 extension URL: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
+    func asParameter(codableHelper: CodableHelper) -> ParameterField {
+        isFileURL ? .file(self) : .string(String(describing: self))
+    }
 }
 
 extension UUID: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { self }
+    func asParameter(codableHelper: CodableHelper) -> ParameterField { .string(String(describing: self)) }
 }
 
-extension RawRepresentable where RawValue: ParameterConvertible, RawValue: Sendable {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable { return self.rawValue }
+extension RawRepresentable where RawValue: ParameterConvertible {
+    func asParameter(codableHelper: CodableHelper) -> ParameterField {
+        return rawValue.asParameter(codableHelper: codableHelper)
+    }
 }
 
-private func encodeIfPossible<T: Sendable>(_ object: T, codableHelper: CodableHelper) -> any Sendable {
+private func encodeIfPossible<T>(_ object: T, codableHelper: CodableHelper) -> ParameterField {
     if let encodableObject = object as? ParameterConvertible {
         return encodableObject.asParameter(codableHelper: codableHelper)
     } else {
-        return object
+        return .string(String(describing: object))
     }
 }
 
-extension Array where Element: Sendable {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable {
-        return self.map { encodeIfPossible($0, codableHelper: codableHelper) }
+extension Array: ParameterConvertible {
+    func asParameter(codableHelper: CodableHelper) -> ParameterField {
+        return .array(self.map { encodeIfPossible($0, codableHelper: codableHelper) })
     }
 }
 
-extension Set where Element: Sendable {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable {
-        return Array(self).asParameter(codableHelper: codableHelper)
+extension Set: ParameterConvertible {
+    func asParameter(codableHelper: CodableHelper) -> ParameterField {
+        return .array(self.map { encodeIfPossible($0, codableHelper: codableHelper) })
     }
 }
 
-extension Dictionary where Key: Sendable, Value: Sendable {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable {
-        var dictionary = [Key: any Sendable]()
+extension Dictionary where Key: Sendable {
+    func asParameter(codableHelper: CodableHelper) -> [Key: ParameterField] {
+        var dictionary = [Key: ParameterField]()
         for (key, value) in self {
             dictionary[key] = encodeIfPossible(value, codableHelper: codableHelper)
         }
@@ -84,19 +75,17 @@ extension Dictionary where Key: Sendable, Value: Sendable {
 }
 
 extension Data: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable {
-        return self.base64EncodedString(options: Data.Base64EncodingOptions())
-    }
+    func asParameter(codableHelper: CodableHelper) -> ParameterField { .data(self) }
 }
 
 extension Date: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable {
-        return codableHelper.dateFormatter.string(from: self)
+    func asParameter(codableHelper: CodableHelper) -> ParameterField {
+        return .string(codableHelper.dateFormatter.string(from: self))
     }
 }
 
 extension ParameterConvertible where Self: Encodable {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable {
+    func asParameter(codableHelper: CodableHelper) -> ParameterField {
         guard let data = try? codableHelper.jsonEncoder.encode(self) else {
             fatalError("Could not encode to json: \(self)")
         }

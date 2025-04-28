@@ -77,8 +77,8 @@ import Foundation
 }
 
 extension OpenAPIDateWithoutTime: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable {
-        return OpenISO8601DateFormatter.withoutTime.string(from: self.normalizedWrappedDate())
+    func asParameter(codableHelper: CodableHelper) -> ParameterField {
+        return .string(OpenISO8601DateFormatter.withoutTime.string(from: self.normalizedWrappedDate()))
     }
 }
 

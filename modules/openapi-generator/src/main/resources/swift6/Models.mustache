@@ -11,7 +11,36 @@ import FoundationNetworking
 import Alamofire{{/useAlamofire}}
 
 protocol ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> any Sendable
+    func asParameter(codableHelper: CodableHelper) -> ParameterField
+}
+
+public enum ParameterField: Sendable {
+    case string(String)
+    case array([ParameterField])
+    case data(Data)
+    case file(URL)
+}
+
+extension ParameterField {
+    public var stringValue: String? {
+        if case .string(let str) = self {
+            return str
+        }
+        // TODO: data and files must be read here
+        return nil
+    }
+}
+
+extension ParameterField: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) {
+        self = .string(value)
+    }
+}
+
+extension ParameterField: ExpressibleByArrayLiteral {
+    public init(arrayLiteral elements: ParameterField...) {
+        self = .array(elements)
+    }
 }
 
 /// An enum where the last case value can be used as a default catch-all.

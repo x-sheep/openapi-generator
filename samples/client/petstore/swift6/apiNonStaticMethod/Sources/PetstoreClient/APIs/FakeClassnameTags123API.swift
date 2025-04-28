@@ -156,7 +156,7 @@ open class FakeClassnameTags123API {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+        let localVariableNillableHeaders: [String: (ParameterField)?] = [
             "Content-Type": "application/json",
         ]
 

@@ -7,8 +7,8 @@
 import Foundation
 
 internal struct APIHelper {
-    internal static func rejectNil(_ source: [String: (any Sendable)?]) -> [String: any Sendable]? {
-        let destination = source.reduce(into: [String: any Sendable]()) { result, item in
+    internal static func rejectNil<Value>(_ source: [String: Value?]) -> [String: Value]? {
+        let destination = source.reduce(into: [String: Value]()) { result, item in
             if let value = item.value {
                 result[item.key] = value
             }
@@ -20,29 +20,19 @@ internal struct APIHelper {
         return destination
     }
 
-    internal static func rejectNilHeaders(_ source: [String: (any Sendable)?]) -> [String: String] {
+    internal static func rejectNilHeaders(_ source: [String: ParameterField?]) -> [String: String] {
         return source.reduce(into: [String: String]()) { result, item in
-            if let collection = item.value as? [Any?] {
+            guard let value = item.value else { return }
+            
+            switch value {
+            case .array(let collection):
                 result[item.key] = collection
-                    .compactMap { value in convertAnyToString(value) }
+                    .compactMap { $0.stringValue }
                     .joined(separator: ",")
-            } else if let value: Any = item.value {
-                result[item.key] = convertAnyToString(value)
-            }
-        }
-    }
-
-    internal static func convertBoolToString(_ source: [String: any Sendable]?) -> [String: any Sendable]? {
-        guard let source = source else {
-            return nil
-        }
-
-        return source.reduce(into: [String: any Sendable]()) { result, item in
-            switch item.value {
-            case let x as Bool:
-                result[item.key] = x.description
             default:
-                result[item.key] = item.value
+                if let string = value.stringValue {
+                    result[item.key] = string
+                }
             }
         }
     }
