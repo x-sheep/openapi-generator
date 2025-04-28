@@ -9,8 +9,8 @@ import Foundation
 
 internal class JSONEncodingHelper {
 
-    internal class func encodingParameters<T: Encodable>(forEncodableObject encodableObj: T?, codableHelper: CodableHelper) -> [String: any Sendable]? {
-        var params: [String: any Sendable]?
+    internal class func encodingParameters<T: Encodable>(forEncodableObject encodableObj: T?, codableHelper: CodableHelper) -> [String: ParameterField]? {
+        var params: [String: ParameterField]?
 
         // Encode the Encodable object
         if let encodableObj = encodableObj {

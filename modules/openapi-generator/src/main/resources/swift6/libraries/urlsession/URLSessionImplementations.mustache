@@ -71,7 +71,7 @@ fileprivate class URLSessionRequestBuilderConfiguration: @unchecked Sendable {
 
 {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}open{{/nonPublicApi}} class URLSessionRequestBuilder<T>: RequestBuilder<T>, @unchecked Sendable {
 
-    required {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} init(method: String, URLString: String, parameters: [String: any Sendable]?, headers: [String: String] = [:], requiresAuthentication: Bool, apiConfiguration: {{projectName}}APIConfiguration = {{projectName}}APIConfiguration.shared) {
+    required {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} init(method: String, URLString: String, parameters: [String: ParameterField]?, headers: [String: String] = [:], requiresAuthentication: Bool, apiConfiguration: {{projectName}}APIConfiguration = {{projectName}}APIConfiguration.shared) {
         super.init(method: method, URLString: URLString, parameters: parameters, headers: headers, requiresAuthentication: requiresAuthentication, apiConfiguration: apiConfiguration)
     }
 
@@ -431,11 +431,11 @@ fileprivate final class SessionDelegate: NSObject, URLSessionTaskDelegate {
 }
 
 {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} protocol ParameterEncoding {
-    func encode(request: URLRequest, with parameters: [String: any Sendable]?) throws -> URLRequest
+    func encode(request: URLRequest, with parameters: [String: ParameterField]?) throws -> URLRequest
 }
 
 private class URLEncoding: ParameterEncoding {
-    func encode(request: URLRequest, with parameters: [String: any Sendable]?) throws -> URLRequest {
+    func encode(request: URLRequest, with parameters: [String: ParameterField]?) throws -> URLRequest {
 
         var urlRequest = request
 
@@ -462,7 +462,7 @@ private class FormDataEncoding: ParameterEncoding {
         self.contentTypeForFormPart = contentTypeForFormPart
     }
 
-    func encode(request: URLRequest, with parameters: [String: any Sendable]?) throws -> URLRequest {
+    func encode(request: URLRequest, with parameters: [String: ParameterField]?) throws -> URLRequest {
 
         var urlRequest = request
 
@@ -475,19 +475,16 @@ private class FormDataEncoding: ParameterEncoding {
         urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
         for (key, value) in parameters {
-            for value in (value as? Array ?? [value]) {
+            for value in value.arrayValue {
                 switch value {
-                case let fileURL as URL:
-
+                case .file(let fileURL):
                     urlRequest = try configureFileUploadRequest(
                         urlRequest: urlRequest,
                         boundary: boundary,
                         name: key,
                         fileURL: fileURL
                     )
-
-                case let string as String:
-
+                case .string(let string):
                     if let data = string.data(using: .utf8) {
                         urlRequest = configureDataUploadRequest(
                             urlRequest: urlRequest,
@@ -496,40 +493,15 @@ private class FormDataEncoding: ParameterEncoding {
                             data: data
                         )
                     }
-
-                case let number as NSNumber:
-
-                    if let data = number.stringValue.data(using: .utf8) {
-                        urlRequest = configureDataUploadRequest(
-                            urlRequest: urlRequest,
-                            boundary: boundary,
-                            name: key,
-                            data: data
-                        )
-                    }
-
-                case let data as Data:
-
+                case .data(let data):
                     urlRequest = configureDataUploadRequest(
                         urlRequest: urlRequest,
                         boundary: boundary,
                         name: key,
                         data: data
                     )
-
-                case let uuid as UUID:
-
-                    if let data = uuid.uuidString.data(using: .utf8) {
-                        urlRequest = configureDataUploadRequest(
-                            urlRequest: urlRequest,
-                            boundary: boundary,
-                            name: key,
-                            data: data
-                        )
-                    }
-
-                default:
-                    fatalError("Unprocessable value \(value) with key \(key)")
+                case .array:
+                    fatalError("Unexpected nested array")
                 }
             }
         }
@@ -631,7 +603,7 @@ private class FormDataEncoding: ParameterEncoding {
 }
 
 private class FormURLEncoding: ParameterEncoding {
-    func encode(request: URLRequest, with parameters: [String: any Sendable]?) throws -> URLRequest {
+    func encode(request: URLRequest, with parameters: [String: ParameterField]?) throws -> URLRequest {
 
         var urlRequest = request
 
@@ -661,7 +633,7 @@ private class FormURLEncoding: ParameterEncoding {
 }
 
 private class OctetStreamEncoding: ParameterEncoding {
-    func encode(request: URLRequest, with parameters: [String: any Sendable]?) throws -> URLRequest {
+    func encode(request: URLRequest, with parameters: [String: ParameterField]?) throws -> URLRequest {
 
         var urlRequest = request
 
@@ -672,12 +644,14 @@ private class OctetStreamEncoding: ParameterEncoding {
         }
 
         switch body {
-        case let fileURL as URL:
+        case .file(let fileURL):
             urlRequest.httpBody = try Data(contentsOf: fileURL)
-        case let data as Data:
+        case .string(let str):
+            urlRequest.httpBody = str.data(using: .utf8)
+        case .data(let data):
             urlRequest.httpBody = data
-        default:
-            fatalError("Unprocessable body \(body)")
+        case .array:
+            fatalError("Unexpected nested array")
         }
 
         return urlRequest

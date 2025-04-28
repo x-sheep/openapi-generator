@@ -29,6 +29,13 @@ extension ParameterField {
         // TODO: data and files must be read here
         return nil
     }
+
+    public var arrayValue: [ParameterField] {
+        if case .array(let array) = self {
+            return array
+        }
+        return [self]
+    }
 }
 
 extension ParameterField: ExpressibleByStringLiteral {

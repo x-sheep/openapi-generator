@@ -30,9 +30,7 @@ extension String: ParameterConvertible {
 }
 
 extension URL: ParameterConvertible {
-    func asParameter(codableHelper: CodableHelper) -> ParameterField {
-        isFileURL ? .file(self) : .string(String(describing: self))
-    }
+    func asParameter(codableHelper: CodableHelper) -> ParameterField { .file(self) }
 }
 
 extension UUID: ParameterConvertible {

@@ -14,7 +14,7 @@ public struct JSONDataEncoding: Sendable {
 
     // MARK: Properties
 
-    private static let jsonDataKey = "jsonData"
+    internal static let jsonDataKey = "jsonData"
 
     // MARK: Encoding
 
@@ -27,10 +27,10 @@ public struct JSONDataEncoding: Sendable {
     /// - throws: An `Error` if the encoding process encounters an error.
     ///
     /// - returns: The encoded request.
-    public func encode(request: URLRequest, with parameters: [String: any Sendable]?) -> URLRequest {
+    public func encode(request: URLRequest, with parameters: [String: ParameterField]?) -> URLRequest {
         var urlRequest = request
 
-        guard let jsonData = parameters?[JSONDataEncoding.jsonDataKey] as? Data, !jsonData.isEmpty else {
+        guard case .data(let jsonData) = parameters?[JSONDataEncoding.jsonDataKey], !jsonData.isEmpty else {
             return urlRequest
         }
 
@@ -43,11 +43,11 @@ public struct JSONDataEncoding: Sendable {
         return urlRequest
     }
 
-    public static func encodingParameters(jsonData: Data?) -> [String: any Sendable]? {
-        var returnedParams: [String: any Sendable]?
+    public static func encodingParameters(jsonData: Data?) -> [String: ParameterField]? {
+        var returnedParams: [String: ParameterField]?
         if let jsonData = jsonData, !jsonData.isEmpty {
-            var params: [String: any Sendable] = [:]
-            params[jsonDataKey] = jsonData
+            var params: [String: ParameterField] = [:]
+            params[jsonDataKey] = .data(jsonData)
             returnedParams = params
         }
         return returnedParams

@@ -14,7 +14,7 @@ import FoundationNetworking
 
     // MARK: Properties
 
-    private static let jsonDataKey = "jsonData"
+    internal static let jsonDataKey = "jsonData"
 
     // MARK: Encoding
 
@@ -27,10 +27,10 @@ import FoundationNetworking
     /// - throws: An `Error` if the encoding process encounters an error.
     ///
     /// - returns: The encoded request.
-    {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} func encode(request: URLRequest, with parameters: [String: any Sendable]?) -> URLRequest {
+    {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} func encode(request: URLRequest, with parameters: [String: ParameterField]?) -> URLRequest {
         var urlRequest = request
 
-        guard let jsonData = parameters?[JSONDataEncoding.jsonDataKey] as? Data, !jsonData.isEmpty else {
+        guard case .data(let jsonData) = parameters?[JSONDataEncoding.jsonDataKey], !jsonData.isEmpty else {
             return urlRequest
         }
 
@@ -43,11 +43,11 @@ import FoundationNetworking
         return urlRequest
     }
 
-    {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} static func encodingParameters(jsonData: Data?) -> [String: any Sendable]? {
-        var returnedParams: [String: any Sendable]?
+    {{#nonPublicApi}}internal{{/nonPublicApi}}{{^nonPublicApi}}public{{/nonPublicApi}} static func encodingParameters(jsonData: Data?) -> [String: ParameterField]? {
+        var returnedParams: [String: ParameterField]?
         if let jsonData = jsonData, !jsonData.isEmpty {
-            var params: [String: any Sendable] = [:]
-            params[jsonDataKey] = jsonData
+            var params: [String: ParameterField] = [:]
+            params[jsonDataKey] = .data(jsonData)
             returnedParams = params
         }
         return returnedParams

@@ -60,11 +60,10 @@ public struct APIHelper {
     /// maps all values from source to query parameters
     ///
     /// explode attribute is respected: collection values might be either joined or split up into separate key value pairs
-    public static func mapValuesToQueryItems(_ source: [String: (wrappedValue: (any Sendable)?, isExplode: Bool)]) -> [URLQueryItem]? {
+    public static func mapValuesToQueryItems(_ source: [String: (wrappedValue: ParameterField?, isExplode: Bool)]) -> [URLQueryItem]? {
         let destination = source.filter { $0.value.wrappedValue != nil }.reduce(into: [URLQueryItem]()) { result, item in
-            if let collection = item.value.wrappedValue as? [Any?] {
-
-                let collectionValues: [String] = collection.compactMap { value in convertAnyToString(value) }
+            if case .array(let collection) = item.value.wrappedValue {
+                let collectionValues: [String] = collection.compactMap { $0.stringValue }
 
                 if !item.value.isExplode {
                     result.append(URLQueryItem(name: item.key, value: collectionValues.joined(separator: ",")))
@@ -75,8 +74,8 @@ public struct APIHelper {
                         }
                 }
 
-            } else if let value = item.value.wrappedValue {
-                result.append(URLQueryItem(name: item.key, value: convertAnyToString(value)))
+            } else if let value = item.value.wrappedValue?.stringValue {
+                result.append(URLQueryItem(name: item.key, value: value))
             }
         }
 
@@ -89,17 +88,18 @@ public struct APIHelper {
     /// maps all values from source to query parameters
     ///
     /// collection values are always exploded
-    public static func mapValuesToQueryItems(_ source: [String: (any Sendable)?]) -> [URLQueryItem]? {
+    public static func mapValuesToQueryItems(_ source: [String: ParameterField?]) -> [URLQueryItem]? {
         let destination = source.filter { $0.value != nil }.reduce(into: [URLQueryItem]()) { result, item in
-            if let collection = item.value as? [Any?] {
-                collection
-                    .compactMap { value in convertAnyToString(value) }
+            if case .array(let collection) = item.value {
+                let collectionValues: [String] = collection.compactMap { $0.stringValue }
+
+                collectionValues
                     .forEach { value in
                         result.append(URLQueryItem(name: item.key, value: value))
                     }
 
-            } else if let value = item.value {
-                result.append(URLQueryItem(name: item.key, value: convertAnyToString(value)))
+            } else if let value = item.value?.stringValue {
+                result.append(URLQueryItem(name: item.key, value: value))
             }
         }
 

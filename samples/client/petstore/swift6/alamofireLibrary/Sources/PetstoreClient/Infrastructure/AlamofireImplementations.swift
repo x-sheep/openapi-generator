@@ -28,7 +28,7 @@ fileprivate class AlamofireRequestBuilderConfiguration: @unchecked Sendable {
 }
 
 open class AlamofireRequestBuilder<T>: RequestBuilder<T>, @unchecked Sendable {
-    required public init(method: String, URLString: String, parameters: [String: any Sendable]?, headers: [String: String] = [:], requiresAuthentication: Bool, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) {
+    required public init(method: String, URLString: String, parameters: [String: ParameterField]?, headers: [String: String] = [:], requiresAuthentication: Bool, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) {
         super.init(method: method, URLString: URLString, parameters: parameters, headers: headers, requiresAuthentication: requiresAuthentication, apiConfiguration: apiConfiguration)
     }
 
@@ -110,24 +110,20 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T>, @unchecked Sendable {
 
                 let upload = manager.upload(multipartFormData: { mpForm in
                     for (k, v) in self.parameters! {
-                        for v in (v as? Array ?? [v]) {
+                        for v in v.arrayValue {
                             switch v {
-                            case let fileURL as URL:
+                            case .file(let fileURL):
                                 if let mimeType = self.contentTypeForFormPart(fileURL: fileURL) {
                                     mpForm.append(fileURL, withName: k, fileName: fileURL.lastPathComponent, mimeType: mimeType)
                                 } else {
                                     mpForm.append(fileURL, withName: k)
                                 }
-                            case let string as String:
+                            case .string(let string):
                                 mpForm.append(string.data(using: String.Encoding.utf8)!, withName: k)
-                            case let number as NSNumber:
-                                mpForm.append(number.stringValue.data(using: String.Encoding.utf8)!, withName: k)
-                            case let data as Data:
+                            case .data(let data):
                                 mpForm.append(data, withName: k)
-                            case let uuid as UUID:
-                                mpForm.append(uuid.uuidString.data(using: String.Encoding.utf8)!, withName: k)
-                            default:
-                                fatalError("Unprocessable value \(v) with key \(k)")
+                            case .array:
+                                fatalError("Unexpected nested array at key \(k)")
                             }
                         }
                     }
@@ -415,6 +411,12 @@ extension JSONDataEncoding: ParameterEncoding {
     public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
         let urlRequest = try urlRequest.asURLRequest()
 
-        return encode(request: urlRequest, with: parameters)
+        if let data = parameters?[JSONDataEncoding.jsonDataKey] as? Data {
+            return encode(request: urlRequest, with: [
+                JSONDataEncoding.jsonDataKey: .data(data)
+            ])
+        }
+        
+        return encode(request: urlRequest, with: [:])
     }
 }
