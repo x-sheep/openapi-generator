@@ -41,7 +41,7 @@ open class PetAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/json",
         ]
 
@@ -86,7 +86,7 @@ open class PetAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "api_key": apiKey?.asParameter(codableHelper: apiConfiguration.codableHelper),
         ]
 
@@ -139,7 +139,7 @@ open class PetAPI {
             "status": (wrappedValue: status.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -185,7 +185,7 @@ open class PetAPI {
             "tags": (wrappedValue: tags.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -229,7 +229,7 @@ open class PetAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -269,7 +269,7 @@ open class PetAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/json",
         ]
 
@@ -312,7 +312,7 @@ open class PetAPI {
         let petIdPostEscape = petIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{petId}", with: petIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: (ParameterField)?] = [
+        let localVariableFormParams: [String: ParameterField?] = [
             "name": name?.asParameter(codableHelper: apiConfiguration.codableHelper),
             "status": status?.asParameter(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -321,7 +321,7 @@ open class PetAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/x-www-form-urlencoded",
         ]
 
@@ -364,7 +364,7 @@ open class PetAPI {
         let petIdPostEscape = petIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{petId}", with: petIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: (ParameterField)?] = [
+        let localVariableFormParams: [String: ParameterField?] = [
             "additionalMetadata": additionalMetadata?.asParameter(codableHelper: apiConfiguration.codableHelper),
             "file": file?.asParameter(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -373,7 +373,7 @@ open class PetAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "multipart/form-data",
         ]
 
@@ -416,7 +416,7 @@ open class PetAPI {
         let petIdPostEscape = petIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{petId}", with: petIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: (ParameterField)?] = [
+        let localVariableFormParams: [String: ParameterField?] = [
             "additionalMetadata": additionalMetadata?.asParameter(codableHelper: apiConfiguration.codableHelper),
             "requiredFile": requiredFile.asParameter(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -425,7 +425,7 @@ open class PetAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "multipart/form-data",
         ]
 

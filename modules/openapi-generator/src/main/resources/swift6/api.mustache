@@ -295,7 +295,7 @@ extension {{projectName}}API {
         {{/bodyParam}}
         {{^bodyParam}}
             {{#hasFormParams}}
-        let localVariableFormParams: [String: (ParameterField)?] = [
+        let localVariableFormParams: [String: ParameterField?] = [
                 {{#formParams}}
             {{> _param}},
                 {{/formParams}}
@@ -315,7 +315,7 @@ extension {{projectName}}API {
         ]){{/hasQueryParams}}{{^hasQueryParams}}
         let localVariableUrlComponents = URLComponents(string: localVariableURLString){{/hasQueryParams}}
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [{{^headerParams}}{{^hasFormParams}}{{^hasConsumes}}
+        let localVariableNillableHeaders: [String: ParameterField?] = [{{^headerParams}}{{^hasFormParams}}{{^hasConsumes}}
             :{{/hasConsumes}}{{/hasFormParams}}{{/headerParams}}{{#hasFormParams}}
             "Content-Type": {{^consumes}}"multipart/form-data"{{/consumes}}{{#consumes.0}}"{{{mediaType}}}"{{/consumes.0}},{{/hasFormParams}}{{^hasFormParams}}{{#hasConsumes}}
             "Content-Type": {{#consumes.0}}"{{{mediaType}}}"{{/consumes.0}},{{/hasConsumes}}{{/hasFormParams}}{{#headerParams}}

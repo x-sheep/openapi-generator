@@ -41,7 +41,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -84,7 +84,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -127,7 +127,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -170,7 +170,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -213,7 +213,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/json",
         ]
 
@@ -260,7 +260,7 @@ import Foundation
             "query": (wrappedValue: query.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/json",
         ]
 
@@ -305,7 +305,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/json",
         ]
 
@@ -375,7 +375,7 @@ import Foundation
     open class func testEndpointParametersWithRequestBuilder(number: Double, double: Double, patternWithoutDelimiter: String, byte: Data, integer: Int? = nil, int32: Int? = nil, int64: Int64? = nil, float: Float? = nil, string: String? = nil, binary: URL? = nil, date: Date? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<Void> {
         let localVariablePath = "/fake"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: (ParameterField)?] = [
+        let localVariableFormParams: [String: ParameterField?] = [
             "integer": integer?.asParameter(codableHelper: apiConfiguration.codableHelper),
             "int32": int32?.asParameter(codableHelper: apiConfiguration.codableHelper),
             "int64": int64?.asParameter(codableHelper: apiConfiguration.codableHelper),
@@ -396,7 +396,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/x-www-form-urlencoded",
         ]
 
@@ -518,7 +518,7 @@ import Foundation
     open class func testEnumParametersWithRequestBuilder(enumHeaderStringArray: [EnumHeaderStringArray_testEnumParameters]? = nil, enumHeaderString: EnumHeaderString_testEnumParameters? = nil, enumQueryStringArray: [EnumQueryStringArray_testEnumParameters]? = nil, enumQueryString: EnumQueryString_testEnumParameters? = nil, enumQueryInteger: EnumQueryInteger_testEnumParameters? = nil, enumQueryDouble: EnumQueryDouble_testEnumParameters? = nil, enumFormStringArray: [EnumFormStringArray_testEnumParameters]? = nil, enumFormString: EnumFormString_testEnumParameters? = nil, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<Void> {
         let localVariablePath = "/fake"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: (ParameterField)?] = [
+        let localVariableFormParams: [String: ParameterField?] = [
             "enum_form_string_array": enumFormStringArray?.asParameter(codableHelper: apiConfiguration.codableHelper),
             "enum_form_string": enumFormString?.asParameter(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -533,7 +533,7 @@ import Foundation
             "enum_query_double": (wrappedValue: enumQueryDouble?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/x-www-form-urlencoded",
             "enum_header_string_array": enumHeaderStringArray?.asParameter(codableHelper: apiConfiguration.codableHelper),
             "enum_header_string": enumHeaderString?.asParameter(codableHelper: apiConfiguration.codableHelper),
@@ -596,7 +596,7 @@ import Foundation
             "int64_group": (wrappedValue: int64Group?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: false),
         ])
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "required_boolean_group": requiredBooleanGroup.asParameter(codableHelper: apiConfiguration.codableHelper),
             "boolean_group": booleanGroup?.asParameter(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -641,7 +641,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/json",
         ]
 
@@ -683,7 +683,7 @@ import Foundation
     open class func testJsonFormDataWithRequestBuilder(param: String, param2: String, apiConfiguration: PetstoreClientAPIConfiguration = PetstoreClientAPIConfiguration.shared) -> RequestBuilder<Void> {
         let localVariablePath = "/fake/jsonFormData"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableFormParams: [String: (ParameterField)?] = [
+        let localVariableFormParams: [String: ParameterField?] = [
             "param": param.asParameter(codableHelper: apiConfiguration.codableHelper),
             "param2": param2.asParameter(codableHelper: apiConfiguration.codableHelper),
         ]
@@ -692,7 +692,7 @@ import Foundation
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             "Content-Type": "application/x-www-form-urlencoded",
         ]
 

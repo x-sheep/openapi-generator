@@ -62,7 +62,7 @@ open class StoreAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -121,7 +121,7 @@ open class StoreAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -182,7 +182,7 @@ open class StoreAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
@@ -239,7 +239,7 @@ open class StoreAPI {
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let localVariableNillableHeaders: [String: (ParameterField)?] = [
+        let localVariableNillableHeaders: [String: ParameterField?] = [
             :
         ]
 
